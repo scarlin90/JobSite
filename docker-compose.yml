@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  graphql-server:
+    image: scarlin90/node-graphql-server
+    ports:
+      - "4000:4000"
+    depends_on:
+      - golang.api
+
+  golang.api:
+    image: scarlin90/go-restapi
+    ports:
+      - "8000:8000"

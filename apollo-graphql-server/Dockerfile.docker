@@ -1,0 +1,12 @@
+FROM node:10.14.2-alpine 
+
+WORKDIR /go/src/app
+COPY . .
+
+Run npm install --save apollo-server graphql
+
+EXPOSE 4000
+
+CMD ["node","index"]
+
+

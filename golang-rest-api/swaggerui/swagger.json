@@ -1,0 +1,609 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "this api has three main resources jobs, contacts and applicants",
+    "title": "JobSite API.",
+    "termsOfService": "there are no TOS at this moment, feel free to use",
+    "contact": {
+      "name": "Sean Carlin",
+      "email": "seancarlin90@googlemail.com"
+    },
+    "version": "0.0.1"
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "paths": {
+    "/applicants": {
+      "get": {
+        "description": "get list of all applicants",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "applicants"
+        ],
+        "operationId": "GetApplicants",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/applicantsResponse"
+          }
+        }
+      }
+    },
+    "/applicants/{id}": {
+      "get": {
+        "description": "get applicant by identifier",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "applicants"
+        ],
+        "operationId": "GetApplicant",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/applicantResponse"
+          }
+        }
+      },
+      "post": {
+        "description": "create new applicant",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "applicants"
+        ],
+        "operationId": "CreateApplicant",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/applicantResponse"
+          }
+        }
+      },
+      "delete": {
+        "description": "remove applicant by identifier",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "applicants"
+        ],
+        "operationId": "DeleteApplicant",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/applicantResponse"
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "description": "get list of all contacts",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "contacts"
+        ],
+        "operationId": "GetContacts",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/contactResponse"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "description": "get contact by identifier",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "contacts"
+        ],
+        "operationId": "GetContact",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/contactResponse"
+          }
+        }
+      },
+      "post": {
+        "description": "create new contact",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "contacts"
+        ],
+        "operationId": "CreateContact",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/contactResponse"
+          }
+        }
+      },
+      "delete": {
+        "description": "remove contact by identifier",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "contacts"
+        ],
+        "operationId": "DeleteContact",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/contactResponse"
+          }
+        }
+      }
+    },
+    "/jobs": {
+      "get": {
+        "description": "get list of all jobs",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "jobs"
+        ],
+        "operationId": "GetJobs",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/jobsResponse"
+          }
+        }
+      }
+    },
+    "/jobs/{id}": {
+      "get": {
+        "description": "get job by identifier",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "jobs"
+        ],
+        "operationId": "GetJob",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/jobResponse"
+          }
+        }
+      },
+      "post": {
+        "description": "create new job",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "jobs"
+        ],
+        "operationId": "CreateJob",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/jobResponse"
+          }
+        }
+      },
+      "delete": {
+        "description": "remove job by identifier",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "schemes": [
+          "http"
+        ],
+        "tags": [
+          "jobs"
+        ],
+        "operationId": "DeleteJob",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/jobResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApplicantDto": {
+      "type": "object",
+      "required": [
+        "jobId"
+      ],
+      "properties": {
+        "appliedDate": {
+          "description": "The datetime the applicant applied for the job",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "AppliedDate"
+        },
+        "contactId": {
+          "description": "The contact id associated with the application",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ContactID"
+        },
+        "createdtime": {
+          "description": "The date time the applicant was first created",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedTime"
+        },
+        "id": {
+          "description": "The applicant id (auto generated)",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "jobId": {
+          "description": "The job id associated with the application",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "JobID"
+        },
+        "modifiedtime": {
+          "description": "The date time the applicant record was last modified",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        }
+      },
+      "x-go-package": "rest-api"
+    },
+    "ContactDto": {
+      "type": "object",
+      "required": [
+        "firstname",
+        "lastname",
+        "dob"
+      ],
+      "properties": {
+        "createdtime": {
+          "description": "The date time the contact was first created",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedTime"
+        },
+        "dob": {
+          "description": "The contact's date of birth",
+          "type": "string",
+          "x-go-name": "Dob"
+        },
+        "firstname": {
+          "description": "The contact's first name",
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "id": {
+          "description": "The contact id (auto generated)",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "lastname": {
+          "description": "The contact's last name",
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "modifiedtime": {
+          "description": "The date time the contact record was last modified",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        },
+        "profilePicUrl": {
+          "description": "The contact's profile picture",
+          "type": "string",
+          "x-go-name": "ProfilePicUrl"
+        }
+      },
+      "x-go-package": "rest-api"
+    },
+    "JobDto": {
+      "type": "object",
+      "required": [
+        "title",
+        "companyName",
+        "hours",
+        "salary",
+        "startDate"
+      ],
+      "properties": {
+        "companyName": {
+          "description": "The companies name",
+          "type": "string",
+          "x-go-name": "CompanyName"
+        },
+        "createdtime": {
+          "description": "The date time the job was first created",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedTime"
+        },
+        "description": {
+          "description": "The jobs description",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "hours": {
+          "description": "The contractable hours for the job",
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Hours"
+        },
+        "id": {
+          "description": "The job id (auto generated)",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "logoUrl": {
+          "description": "The companies logo",
+          "type": "string",
+          "x-go-name": "LogoUrl"
+        },
+        "modifiedtime": {
+          "description": "The date time the job record was last modified",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "ModifiedTime"
+        },
+        "salary": {
+          "description": "The salary for the job",
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Salary"
+        },
+        "startDate": {
+          "description": "The start date of the job",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "StartDate"
+        },
+        "title": {
+          "description": "The jobs title",
+          "type": "string",
+          "x-go-name": "Title"
+        }
+      },
+      "x-go-package": "rest-api"
+    }
+  },
+  "responses": {
+    "applicantResponse": {
+      "headers": {
+        "appliedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The datetime the applicant applied for the job\n\nRequired: false"
+        },
+        "contactId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The contact id associated with the application\n\nRequired: false"
+        },
+        "createdtime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date time the applicant was first created"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The applicant id (auto generated)\n\nRequired: false"
+        },
+        "jobId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The job id associated with the application\n\nRequired: true"
+        },
+        "modifiedtime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date time the applicant record was last modified"
+        }
+      }
+    },
+    "applicantsResponse": {
+      "headers": {
+        "applicantList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApplicantDto"
+          },
+          "description": "list of applicants"
+        }
+      }
+    },
+    "contactResponse": {
+      "headers": {
+        "createdtime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date time the contact was first created"
+        },
+        "dob": {
+          "type": "string",
+          "description": "The contact's date of birth\n\nRequired: true"
+        },
+        "firstname": {
+          "type": "string",
+          "description": "The contact's first name\n\nRequired: true"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The contact id (auto generated)\n\nRequired: false"
+        },
+        "lastname": {
+          "type": "string",
+          "description": "The contact's last name\n\nRequired: true"
+        },
+        "modifiedtime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date time the contact record was last modified"
+        },
+        "profilePicUrl": {
+          "type": "string",
+          "description": "The contact's profile picture\n\nRequired: false"
+        }
+      }
+    },
+    "contactsResponse": {
+      "headers": {
+        "contactList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContactDto"
+          },
+          "description": "List of contacts available"
+        }
+      }
+    },
+    "jobResponse": {
+      "headers": {
+        "companyName": {
+          "type": "string",
+          "description": "The companies name\n\nRequired: true"
+        },
+        "createdtime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date time the job was first created"
+        },
+        "description": {
+          "type": "string",
+          "description": "The jobs description\n\nRequired: false"
+        },
+        "hours": {
+          "type": "number",
+          "format": "double",
+          "description": "The contractable hours for the job\n\nRequired: true"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The job id (auto generated)\n\nRequired: false"
+        },
+        "logoUrl": {
+          "type": "string",
+          "description": "The companies logo\n\nRequired: false"
+        },
+        "modifiedtime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date time the job record was last modified"
+        },
+        "salary": {
+          "type": "number",
+          "format": "double",
+          "description": "The salary for the job\n\nRequired: true"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start date of the job\n\nRequired: true"
+        },
+        "title": {
+          "type": "string",
+          "description": "The jobs title\n\nRequired: true"
+        }
+      }
+    },
+    "jobsResponse": {
+      "headers": {
+        "jobList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JobDto"
+          },
+          "description": "list of jobs available"
+        }
+      }
+    }
+  }
+}
