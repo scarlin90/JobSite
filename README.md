@@ -27,6 +27,7 @@ Open browser with following URL: http://localhost:4000
 
 ### Docker Images
 Each of the component images can be retrieved with the following commands:
+
 | Component | Latest Image Command |
 | ------ | ------ |
 | GoLang Rest Api | docker pull scarlin90/go-restapi:latest |
