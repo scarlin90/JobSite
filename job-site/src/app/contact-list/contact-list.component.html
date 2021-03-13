@@ -1,3 +1,8 @@
-<div class="card-deck">
-    <app-card *ngFor="let card of cardList;" [cardModel]="card" (cardClick)="onCardClick($event)"></app-card>
+<app-list-header [listHeaderModel]="headerModel"></app-list-header>
+<div class="row">
+    <div class="col-12">
+        <div class="card-deck">
+            <app-card *ngFor="let card of cardList;" [cardModel]="card" (cardClick)="onCardClick($event)"></app-card>
+        </div>
+    </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ContactDto, ContactsService } from 'src/app/api';
 import { CardModel } from '../presentation/card/card.model';
 import { DatePipe } from '@angular/common';
+import { ListHeaderModel } from '../presentation/list-header/list-header.model';
 
 @Component({
   selector: 'app-contact-list',
@@ -9,7 +10,9 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
-
+  headerModel: ListHeaderModel = {
+    headerText: 'Contacts'
+  }
   cardList: CardModel[] = [];
 
   constructor(private contactsService: ContactsService, private datePipe: DatePipe) {
@@ -35,5 +38,9 @@ export class ContactListComponent implements OnInit {
     if (cardMatch) {
       cardMatch.isSelected = !cardMatch.isSelected;
     }
+
+    const selectedCount = this.cardList.filter(card => card.isSelected).length;
+    this.headerModel.subHeaderText = `${selectedCount} Selected`
+
   }
 }
