@@ -1,0 +1,14 @@
+<div [ngClass]="{'card-active': cardModel.isSelected}" class="card card-padding" (click)="onCardClick()">
+
+    <img *ngIf="cardModel.imgUrl" class="card-img-top" [src]="cardModel.imgUrl">
+
+
+    <div class="card-body">
+        <h5 class="card-title" *ngIf="cardModel.titleText">{{ cardModel.titleText }}</h5>
+        <p class="card-text" *ngIf="cardModel.bodyText">DOB: {{ cardModel.bodyText }}</p>
+        <p class="card-text" *ngIf="cardModel.footerText">
+            <small class="text-muted">{{cardModel.footerText}}</small>
+        </p>
+    </div>
+
+</div>

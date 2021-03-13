@@ -1,0 +1,3 @@
+<div class="card-deck">
+    <app-card *ngFor="let card of cardList;" [cardModel]="card" (cardClick)="onCardClick($event)"></app-card>
+</div>

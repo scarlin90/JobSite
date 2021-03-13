@@ -103,6 +103,7 @@ type ContactsDto struct {
 //       200: contactResponse
 func GetContacts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(contacts)
 }
 
@@ -122,6 +123,7 @@ func GetContacts(w http.ResponseWriter, r *http.Request) {
 //       200: contactResponse
 func GetContact(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	params := mux.Vars(r)
 	for _, item := range contacts.ContactList {
 		id, _ := strconv.Atoi(params["id"])
@@ -157,6 +159,7 @@ func CreateContact(w http.ResponseWriter, r *http.Request) {
 	contacts.ContactList = append(contacts.ContactList, contact)
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(&contact)
 }
 
@@ -186,6 +189,7 @@ func DeleteContact(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(deletedContact)
 }
 
@@ -259,6 +263,7 @@ type JobsDto struct {
 //       200: jobsResponse
 func GetJobs(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(jobs)
 }
 
@@ -278,6 +283,7 @@ func GetJobs(w http.ResponseWriter, r *http.Request) {
 //       200: jobResponse
 func GetJob(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	params := mux.Vars(r)
 	for _, item := range jobs.JobList {
 		id, _ := strconv.Atoi(params["id"])
@@ -311,6 +317,7 @@ func CreateJob(w http.ResponseWriter, r *http.Request) {
 	job.ModifiedTime = time.Now().UTC()
 	jobs.JobList = append(jobs.JobList, job)
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(job)
 }
 
@@ -340,6 +347,7 @@ func DeleteJob(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(deletedJob)
 }
 
@@ -376,6 +384,7 @@ func GetContactJobs(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(jobsDto)
 }
 
@@ -433,6 +442,7 @@ type ApplicantsDto struct {
 //       200: applicantsResponse
 func GetApplicants(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(applicants)
 }
 
@@ -484,6 +494,7 @@ func CreateApplicant(w http.ResponseWriter, r *http.Request) {
 	applicant.ModifiedTime = time.Now().UTC()
 	applicants.ApplicantList = append(applicants.ApplicantList, applicant)
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(applicant)
 }
 
@@ -513,6 +524,7 @@ func DeleteApplicant(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(deletedApplicant)
 }
 
