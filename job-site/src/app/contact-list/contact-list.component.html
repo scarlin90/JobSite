@@ -4,16 +4,15 @@
         <h5>{{selectedContacts.length}} Selected</h5>
     </div>
     <div class="col-3">
-        <button type="button" class="btn btn-primary" (click)="onAddClick(template)">Add</button>
-
         <button [disabled]="selectedContacts.length === 0 ? true : null" (click)="onDeleteClick()" type="button"
-            class="btn btn-danger">Remove</button>
+        class="btn btn-danger float-right">Remove</button>
+        <button type="button" class="btn btn-primary float-right mr-2" (click)="onAddClick(template)">Add</button>
     </div>
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card-deck">
-            <app-card *ngFor="let card of cardList;" [cardModel]="card" (cardClick)="onCardClick($event)"></app-card>
+        <div class="row">
+            <app-card class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" *ngFor="let card of cardList;" [cardModel]="card" (cardClick)="onCardClick($event)"></app-card>
         </div>
     </div>
 </div>

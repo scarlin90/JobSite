@@ -6,8 +6,8 @@
     <div class="card-body">
         <h5 class="card-title" *ngIf="cardModel.titleText">{{ cardModel.titleText }}</h5>
         <p class="card-text" *ngIf="cardModel.bodyText">DOB: {{ cardModel.bodyText }}</p>
-        <p class="card-text" *ngIf="cardModel.footerText">
-            <small class="text-muted">{{cardModel.footerText}}</small>
+        <p class="card-text text-muted" *ngIf="cardModel.footerText">
+           {{cardModel.footerText}}
         </p>
     </div>
 

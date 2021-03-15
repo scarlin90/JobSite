@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    font-family: 'Roboto', sans-serif;;
+}
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    &.bg-dark {
+        background-color: #000000!important;
+        .nav-item {
+            &.active {
+                .nav-link {
+                    background: #333333;
+                }
+            }
+            .nav-link {
+                padding: 1rem;
+                &:hover {
+                    background: #333333;
+                }
+            }
+        }
+    }
+}
