@@ -8,18 +8,25 @@ describe('ListHeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListHeaderComponent ]
+      declarations: [ListHeaderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ListHeaderComponent);
     component = fixture.componentInstance;
+    component.listHeaderModel = {
+      headerText: 'my header text'
+    }
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('LHC001 - should create component', () => {
+    // arrange
+    // act
+
+    // assert
     expect(component).toBeTruthy();
   });
 });
