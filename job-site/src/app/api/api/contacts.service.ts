@@ -64,10 +64,10 @@ export class ContactsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createContact(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createContact(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createContact(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createContact(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public createContact(body?: any, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public createContact(body?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public createContact(body?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public createContact(body?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -86,7 +86,7 @@ export class ContactsService {
         ];
 
         return this.httpClient.post<any>(`${this.basePath}/contacts`,
-            null,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -1,10 +1,12 @@
 <app-list-header [listHeaderModel]="headerModel"></app-list-header>
 <div class="row">
     <div class="col-9">
-        <h5>{{selectedCount}} Selected</h5>
+        <h5>{{selectedContacts.length}} Selected</h5>
     </div>
     <div class="col-3">
-        <button [disabled]="selectedCount === 0 ? true : null" (click)="onDeleteClick()" type="button"
+        <button type="button" class="btn btn-primary" (click)="onAddClick(template)">Add</button>
+
+        <button [disabled]="selectedContacts.length === 0 ? true : null" (click)="onDeleteClick()" type="button"
             class="btn btn-danger">Remove</button>
     </div>
 </div>
@@ -15,3 +17,9 @@
         </div>
     </div>
 </div>
+
+
+
+<ng-template #template>
+    <app-add-contact (addContact)="onContactAdded($event)"></app-add-contact>
+</ng-template>

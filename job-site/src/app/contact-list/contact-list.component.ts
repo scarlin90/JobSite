@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ContactDto, ContactsService } from 'src/app/api';
-import { CardModel } from '../presentation/card/card.model';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ContactsService, ContactDto } from 'src/app/api';
+import { CardModel } from '../presentation/card/card.model';
 import { ListHeaderModel } from '../presentation/list-header/list-header.model';
+
 import { forkJoin, Observable } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-contact-list',
@@ -16,23 +18,15 @@ export class ContactListComponent implements OnInit {
   }
   cardList: CardModel[] = [];
   selectedCount: number = 0;
+  selectedContacts: CardModel[] = [];
 
-  constructor(private contactsService: ContactsService, private datePipe: DatePipe) {
+  modalRef: BsModalRef;
+
+  constructor(private contactsService: ContactsService, private modalService: BsModalService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
-    this.contactsService.getContacts().subscribe(contactResponse => {
-      this.cardList = contactResponse.contactList.map(contact => {
-        return {
-          identifier: contact.id.toString(),
-          imgUrl: contact.profilePicUrl,
-          titleText: `${contact.firstname} ${contact.lastname}`,
-          bodyText: contact.dob,
-          footerText: this.datePipe.transform(contact.createdtime, 'medium'),
-          isSelected: false
-        }
-      });
-    })
+    this.getContacts();
   }
 
   onCardClick(cardModel: CardModel) {
@@ -41,8 +35,7 @@ export class ContactListComponent implements OnInit {
       cardMatch.isSelected = !cardMatch.isSelected;
     }
 
-    this.selectedCount = this.cardList.filter(card => card.isSelected).length;
-
+    this.updateSelectedContacts();
   }
 
   onDeleteClick() {
@@ -54,7 +47,35 @@ export class ContactListComponent implements OnInit {
 
     forkJoin(contactsToDelete).subscribe(s => {
       this.cardList = this.cardList.filter(card => !card.isSelected);
+      this.updateSelectedContacts();
     });
+  }
 
+  onAddClick(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onContactAdded(contactAdded: ContactDto) {
+    this.modalRef.hide();
+    this.getContacts();
+  }
+
+  getContacts() {
+    this.contactsService.getContacts().subscribe(contactResponse => {
+      this.cardList = contactResponse.contactList.map(contact => {
+        return {
+          identifier: contact.id.toString(),
+          imgUrl: contact.profilePicUrl,
+          titleText: `${contact.firstname} ${contact.lastname}`,
+          bodyText: contact.dob,
+          footerText: this.datePipe.transform(contact.createdtime, 'medium'),
+          isSelected: this.selectedContacts.find(sc => sc.identifier === contact.id.toString()) ? true : false
+        }
+      });
+    })
+  }
+
+  updateSelectedContacts() {
+    this.selectedContacts = this.cardList.filter(card => card.isSelected);
   }
 }
