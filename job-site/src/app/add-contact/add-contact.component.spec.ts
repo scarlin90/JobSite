@@ -58,4 +58,16 @@ describe('AddContactComponent', () => {
     expect(component).toBeTruthy();
     expect(spyUnsubscribe).toHaveBeenCalled();
   });
+
+  it('ACC003 - should not call unsubscribe if subscription is undefined OnDestroy', () => {
+    // arrange
+    component.createContactSubscription = undefined;
+
+    // act
+    component.ngOnDestroy();
+
+    // assert
+    expect(component).toBeTruthy();
+    expect(component.createContactSubscription).toBeUndefined();
+  });
 });
