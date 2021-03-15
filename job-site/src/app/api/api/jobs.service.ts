@@ -11,199 +11,243 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core'
 import {
-    HttpClient, HttpHeaders, HttpParams,
-    HttpResponse, HttpEvent
-} from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+  HttpEvent,
+} from '@angular/common/http'
+import { CustomHttpUrlEncodingCodec } from '../encoder'
 
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs'
 
-
-import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
-import { Configuration } from '../configuration';
-
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables'
+import { Configuration } from '../configuration'
 
 @Injectable()
 export class JobsService {
+  protected basePath = 'http://localhost:8000'
+  public defaultHeaders = new HttpHeaders()
+  public configuration = new Configuration()
 
-    protected basePath = 'http://localhost:8000';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration,
+  ) {
+    if (basePath) {
+      this.basePath = basePath
+    }
+    if (configuration) {
+      this.configuration = configuration
+      this.basePath = basePath || configuration.basePath || this.basePath
+    }
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
-        }
+  /**
+   * @param consumes string[] mime-types
+   * @return true: consumes contains 'multipart/form-data', false: otherwise
+   */
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = 'multipart/form-data'
+    for (const consume of consumes) {
+      if (form === consume) {
+        return true
+      }
+    }
+    return false
+  }
+
+  /**
+   *
+   * create new job
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public createJob(
+    body?: any,
+    observe?: 'body',
+    reportProgress?: boolean,
+  ): Observable<any>
+  public createJob(
+    body?: any,
+    observe?: 'response',
+    reportProgress?: boolean,
+  ): Observable<HttpResponse<any>>
+  public createJob(
+    body?: any,
+    observe?: 'events',
+    reportProgress?: boolean,
+  ): Observable<HttpEvent<any>>
+  public createJob(
+    body?: any,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+  ): Observable<any> {
+    let headers = this.defaultHeaders
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json']
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts)
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected)
     }
 
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json']
+
+    return this.httpClient.post<any>(`${this.basePath}/jobs`, body, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress,
+    })
+  }
+
+  /**
+   *
+   * remove job by identifier
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public deleteJob(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+  ): Observable<any>
+  public deleteJob(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+  ): Observable<HttpResponse<any>>
+  public deleteJob(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+  ): Observable<HttpEvent<any>>
+  public deleteJob(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+  ): Observable<any> {
+    let headers = this.defaultHeaders
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json']
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts)
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected)
     }
 
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json']
 
-    /**
-     * 
-     * create new job
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createJob(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public createJob(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public createJob(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public createJob(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    return this.httpClient.delete<any>(
+      `${this.basePath}/jobs/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      },
+    )
+  }
 
-        let headers = this.defaultHeaders;
+  /**
+   *
+   * get job by identifier
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getJob(
+    id: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+  ): Observable<any>
+  public getJob(
+    id: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+  ): Observable<HttpResponse<any>>
+  public getJob(
+    id: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+  ): Observable<HttpEvent<any>>
+  public getJob(
+    id: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+  ): Observable<any> {
+    let headers = this.defaultHeaders
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.post<any>(`${this.basePath}/jobs`,
-            null,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json']
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts)
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected)
     }
 
-    /**
-     * 
-     * remove job by identifier
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public deleteJob(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteJob(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteJob(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteJob(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json']
 
-        let headers = this.defaultHeaders;
+    return this.httpClient.get<any>(
+      `${this.basePath}/jobs/${encodeURIComponent(String(id))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress,
+      },
+    )
+  }
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
+  /**
+   *
+   * get list of all jobs
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public getJobs(observe?: 'body', reportProgress?: boolean): Observable<any>
+  public getJobs(
+    observe?: 'response',
+    reportProgress?: boolean,
+  ): Observable<HttpResponse<any>>
+  public getJobs(
+    observe?: 'events',
+    reportProgress?: boolean,
+  ): Observable<HttpEvent<any>>
+  public getJobs(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+  ): Observable<any> {
+    let headers = this.defaultHeaders
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.delete<any>(`${this.basePath}/jobs/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json']
+    const httpHeaderAcceptSelected:
+      | string
+      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts)
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected)
     }
 
-    /**
-     * 
-     * get job by identifier
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getJob(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getJob(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getJob(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getJob(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json']
 
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/jobs/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * get list of all jobs
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getJobs(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getJobs(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getJobs(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getJobs(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/jobs`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
+    return this.httpClient.get<any>(`${this.basePath}/jobs`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress,
+    })
+  }
 }
