@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Add Contact</h4>
+</div>
+<div class="modal-body">
+    <p>Please enter the details below of the new contact.</p>
+
+    <form>
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input [(ngModel)]="contactToAdd.firstname" type="text" class="form-control" id="firstname" name="firstname"
+                placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input [(ngModel)]="contactToAdd.lastname" type="text" class="form-control" id="lastname" name="lastname"
+                placeholder="Enter last name">
+        </div>
+        <div class="form-group">
+            <label for="dob">Date of birth</label>
+            <input disabled type="text" id="dob" class="form-control" value="1/1/2000">
+        </div>
+    </form>
+
+    <button class="btn btn-primary mb-2" (click)="onAddClick()">Add</button>
+</div>
