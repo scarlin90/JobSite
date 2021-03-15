@@ -1,4 +1,4 @@
 export class ListHeaderModel {
     headerText?: string;
-    subHeaderText?: string;
+    // subHeaderText?: string;
 }

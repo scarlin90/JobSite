@@ -1,5 +1,14 @@
 <app-list-header [listHeaderModel]="headerModel"></app-list-header>
 <div class="row">
+    <div class="col-9">
+        <h5>{{selectedCount}} Selected</h5>
+    </div>
+    <div class="col-3">
+        <button [disabled]="selectedCount === 0 ? true : null" (click)="onDeleteClick()" type="button"
+            class="btn btn-danger">Remove</button>
+    </div>
+</div>
+<div class="row">
     <div class="col-12">
         <div class="card-deck">
             <app-card *ngFor="let card of cardList;" [cardModel]="card" (cardClick)="onCardClick($event)"></app-card>
