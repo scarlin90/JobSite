@@ -10,7 +10,7 @@ This project is to develop a fully functional job site with a modern tech stack 
 |[Docker](https://www.docker.com/)| To package all parts of the app in separate containers |
 
 
-### Running Application (Docker)
+### Running Backend Application (Docker)
 ##### Step 1 
 Install [Docker](https://www.docker.com/)
 ##### Step 2
@@ -32,6 +32,22 @@ Each of the component images can be retrieved with the following commands:
 | ------ | ------ |
 | GoLang Rest Api | docker pull scarlin90/go-restapi:latest |
 | Apollo GraphQL Server | docker pull scarlin90/node-graphql-server:latest |
+
+
+### Running Frontend Application (Angular)
+##### Step 1 
+Open another terminal
+##### Step 2
+Run the following commands 
+```sh
+$ cd job-site
+$ npm install
+$ ng serve
+```
+##### Step 3
+To access Frontend application
+Open browser with following URL: http://localhost:4200
+
 
 ### Contributors
 ##### [Sean Carlin](https://github.com/scarlin90)
