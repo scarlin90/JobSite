@@ -1,15 +1,16 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ContactsService, ContactListDto, ContactDto } from '../api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-contact',
   templateUrl: './add-contact.component.html',
   styleUrls: ['./add-contact.component.scss']
 })
-export class AddContactComponent implements OnInit {
-
+export class AddContactComponent implements OnInit, OnDestroy {
   @Output() addContact: EventEmitter<Partial<ContactDto>> = new EventEmitter<Partial<ContactDto>>();
 
+  public createContactSubscription: Subscription;
   public contactToAdd: ContactDto = {
     firstname: '',
     lastname: '',
@@ -21,8 +22,12 @@ export class AddContactComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.createContactSubscription?.unsubscribe();
+  }
+
   onAddClick() {
-    this.contactsService.createContact(this.contactToAdd as any).subscribe(res => {
+    this.createContactSubscription = this.contactsService.createContact(this.contactToAdd as any).subscribe(res => {
       this.addContact.emit(this.contactToAdd);
     })
   }

@@ -22,7 +22,10 @@ export class ContactListComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  constructor(private contactsService: ContactsService, private modalService: BsModalService, private datePipe: DatePipe) {
+  constructor(
+    private contactsService: ContactsService,
+    private modalService: BsModalService,
+    private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
