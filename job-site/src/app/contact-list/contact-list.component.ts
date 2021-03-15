@@ -3,6 +3,7 @@ import { ContactDto, ContactsService } from 'src/app/api';
 import { CardModel } from '../presentation/card/card.model';
 import { DatePipe } from '@angular/common';
 import { ListHeaderModel } from '../presentation/list-header/list-header.model';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-contact-list',
@@ -14,6 +15,7 @@ export class ContactListComponent implements OnInit {
     headerText: 'Contacts'
   }
   cardList: CardModel[] = [];
+  selectedCount: number = 0;
 
   constructor(private contactsService: ContactsService, private datePipe: DatePipe) {
   }
@@ -39,8 +41,20 @@ export class ContactListComponent implements OnInit {
       cardMatch.isSelected = !cardMatch.isSelected;
     }
 
-    const selectedCount = this.cardList.filter(card => card.isSelected).length;
-    this.headerModel.subHeaderText = `${selectedCount} Selected`
+    this.selectedCount = this.cardList.filter(card => card.isSelected).length;
+
+  }
+
+  onDeleteClick() {
+    let contactsToDelete: Observable<any>[] = [];
+    const selectedContacts = this.cardList.filter(card => card.isSelected);
+    selectedContacts.forEach(contact => {
+      contactsToDelete.push(this.contactsService.deleteContact(+contact.identifier));
+    })
+
+    forkJoin(contactsToDelete).subscribe(s => {
+      this.cardList = this.cardList.filter(card => !card.isSelected);
+    });
 
   }
 }

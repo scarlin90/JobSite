@@ -104,6 +104,8 @@ type ContactsDto struct {
 func GetContacts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	json.NewEncoder(w).Encode(contacts)
 }
 
@@ -124,6 +126,8 @@ func GetContacts(w http.ResponseWriter, r *http.Request) {
 func GetContact(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	params := mux.Vars(r)
 	for _, item := range contacts.ContactList {
 		id, _ := strconv.Atoi(params["id"])
@@ -149,6 +153,10 @@ func GetContact(w http.ResponseWriter, r *http.Request) {
 //     Responses:
 //       200: contactResponse
 func CreateContact(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	var contact ContactDto
 	_ = json.NewDecoder(r.Body).Decode(&contact)
 
@@ -157,9 +165,6 @@ func CreateContact(w http.ResponseWriter, r *http.Request) {
 	contact.CreatedTime = time.Now().UTC()
 	contact.ModifiedTime = time.Now().UTC()
 	contacts.ContactList = append(contacts.ContactList, contact)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(&contact)
 }
 
@@ -178,6 +183,11 @@ func CreateContact(w http.ResponseWriter, r *http.Request) {
 //     Responses:
 //       200: contactResponse
 func DeleteContact(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
+
 	params := mux.Vars(r)
 	var deletedContact ContactDto
 	for index, item := range contacts.ContactList {
@@ -188,8 +198,6 @@ func DeleteContact(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(deletedContact)
 }
 
@@ -264,6 +272,8 @@ type JobsDto struct {
 func GetJobs(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	json.NewEncoder(w).Encode(jobs)
 }
 
@@ -284,6 +294,8 @@ func GetJobs(w http.ResponseWriter, r *http.Request) {
 func GetJob(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	params := mux.Vars(r)
 	for _, item := range jobs.JobList {
 		id, _ := strconv.Atoi(params["id"])
@@ -309,6 +321,10 @@ func GetJob(w http.ResponseWriter, r *http.Request) {
 //     Responses:
 //       200: jobResponse
 func CreateJob(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	var job JobDto
 	_ = json.NewDecoder(r.Body).Decode(&job)
 	job.ID = len(jobs.JobList) + 1
@@ -316,8 +332,6 @@ func CreateJob(w http.ResponseWriter, r *http.Request) {
 	job.CreatedTime = time.Now().UTC()
 	job.ModifiedTime = time.Now().UTC()
 	jobs.JobList = append(jobs.JobList, job)
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(job)
 }
 
@@ -336,6 +350,10 @@ func CreateJob(w http.ResponseWriter, r *http.Request) {
 //     Responses:
 //       200: jobResponse
 func DeleteJob(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	params := mux.Vars(r)
 	var deletedJob JobDto
 	for index, item := range jobs.JobList {
@@ -346,8 +364,6 @@ func DeleteJob(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(deletedJob)
 }
 
@@ -366,6 +382,10 @@ func DeleteJob(w http.ResponseWriter, r *http.Request) {
 //     Responses:
 //       200: jobsResponse
 func GetContactJobs(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	params := mux.Vars(r)
 	var jobsDto JobsDto
 
@@ -383,8 +403,6 @@ func GetContactJobs(w http.ResponseWriter, r *http.Request) {
 			jobsDto.JobList = append(jobsDto.JobList, item)
 		}
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(jobsDto)
 }
 
@@ -443,6 +461,8 @@ type ApplicantsDto struct {
 func GetApplicants(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	json.NewEncoder(w).Encode(applicants)
 }
 
@@ -462,6 +482,9 @@ func GetApplicants(w http.ResponseWriter, r *http.Request) {
 //       200: applicantResponse
 func GetApplicant(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	params := mux.Vars(r)
 	for _, item := range applicants.ApplicantList {
 		id, _ := strconv.Atoi(params["id"])
@@ -487,14 +510,16 @@ func GetApplicant(w http.ResponseWriter, r *http.Request) {
 //     Responses:
 //       200: applicantResponse
 func CreateApplicant(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	var applicant ApplicantDto
 	_ = json.NewDecoder(r.Body).Decode(&applicant)
 	applicant.ID = len(applicants.ApplicantList) + 1
 	applicant.CreatedTime = time.Now().UTC()
 	applicant.ModifiedTime = time.Now().UTC()
 	applicants.ApplicantList = append(applicants.ApplicantList, applicant)
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(applicant)
 }
 
@@ -513,6 +538,10 @@ func CreateApplicant(w http.ResponseWriter, r *http.Request) {
 //     Responses:
 //       200: applicantResponse
 func DeleteApplicant(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin","*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, Content-Length, Authorization")
 	params := mux.Vars(r)
 	var deletedApplicant ApplicantDto
 	for index, item := range applicants.ApplicantList {
@@ -523,8 +552,6 @@ func DeleteApplicant(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin","*")
 	json.NewEncoder(w).Encode(deletedApplicant)
 }
 
@@ -551,22 +578,22 @@ func main() {
 	globalDefaultImageUrls.JobLogoDefaultUrl = domain + imagesUrl + "job-logo-default.jpeg"
 
 	// swagger:route GET /contacts
-	router.HandleFunc(contactsUrl, GetContacts).Methods("GET")
-	router.HandleFunc(contactUrl, GetContact).Methods("GET")
-	router.HandleFunc(contactsUrl, CreateContact).Methods("POST")
-	router.HandleFunc(contactUrl, DeleteContact).Methods("DELETE")
+	router.HandleFunc(contactsUrl, GetContacts).Methods("GET", "OPTIONS")
+	router.HandleFunc(contactUrl, GetContact).Methods("GET", "OPTIONS")
+	router.HandleFunc(contactsUrl, CreateContact).Methods("POST", "OPTIONS")
+	router.HandleFunc(contactUrl, DeleteContact).Methods("DELETE", "OPTIONS")
 
-	router.HandleFunc(contactUrl+jobsUrl, GetContactJobs).Methods("GET")
+	router.HandleFunc(contactUrl+jobsUrl, GetContactJobs).Methods("GET", "OPTIONS")
 
-	router.HandleFunc(jobsUrl, GetJobs).Methods("GET")
-	router.HandleFunc(jobUrl, GetJob).Methods("GET")
-	router.HandleFunc(jobsUrl, CreateJob).Methods("POST")
-	router.HandleFunc(jobUrl, DeleteJob).Methods("DELETE")
+	router.HandleFunc(jobsUrl, GetJobs).Methods("GET", "OPTIONS")
+	router.HandleFunc(jobUrl, GetJob).Methods("GET", "OPTIONS")
+	router.HandleFunc(jobsUrl, CreateJob).Methods("POST", "OPTIONS")
+	router.HandleFunc(jobUrl, DeleteJob).Methods("DELETE", "OPTIONS")
 
-	router.HandleFunc(applicantsUrl, GetApplicants).Methods("GET")
-	router.HandleFunc(applicantUrl, GetApplicant).Methods("GET")
-	router.HandleFunc(applicantsUrl, CreateApplicant).Methods("POST")
-	router.HandleFunc(applicantUrl, DeleteApplicant).Methods("DELETE")
+	router.HandleFunc(applicantsUrl, GetApplicants).Methods("GET", "OPTIONS")
+	router.HandleFunc(applicantUrl, GetApplicant).Methods("GET", "OPTIONS")
+	router.HandleFunc(applicantsUrl, CreateApplicant).Methods("POST", "OPTIONS")
+	router.HandleFunc(applicantUrl, DeleteApplicant).Methods("DELETE", "OPTIONS")
 
 	contacts.ContactList = append(contacts.ContactList,
 		ContactDto{
