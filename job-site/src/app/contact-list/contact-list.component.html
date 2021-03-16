@@ -1,31 +1,32 @@
 <app-list-header [listHeaderModel]="headerModel"></app-list-header>
 <div class="row">
-  <div class="col-9">
-    <h5>{{ selectedContacts.length }} Selected</h5>
+  <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+    <h5 class="mt-2">{{ selectedContacts.length }} Selected</h5>
   </div>
-  <div class="col-3">
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <button
+    [disabled]="selectedContacts.length === 0 ? true : null"
+    (click)="onDeleteClick()"
+    type="button"
+    class="btn btn-danger float-right"
+  >
+    Remove
+  </button>
     <button
       type="button"
-      class="btn btn-primary"
+      class="btn btn-primary btn btn-primary float-right mr-2"
       (click)="onAddButtonClick(template)"
     >
       Add
     </button>
 
-    <button
-      [disabled]="selectedContacts.length === 0 ? true : null"
-      (click)="onDeleteClick()"
-      type="button"
-      class="btn btn-danger"
-    >
-      Remove
-    </button>
   </div>
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card-deck">
+    <div class="row">
       <app-card
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3"
         *ngFor="let card of cardList"
         [cardModel]="card"
         (cardClick)="onCardClick($event)"

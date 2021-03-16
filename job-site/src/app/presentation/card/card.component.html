@@ -4,10 +4,10 @@
 
 
     <div class="card-body">
-        <h5 class="card-title" *ngIf="cardModel.titleText">{{ cardModel.titleText }}</h5>
-        <p class="card-text" *ngIf="cardModel.bodyText">DOB: {{ cardModel.bodyText }}</p>
-        <p class="card-text" *ngIf="cardModel.footerText">
-            <small class="text-muted">{{cardModel.footerText}}</small>
+        <h5 class="card-title text-truncate" *ngIf="cardModel.titleText"><span title="{{ cardModel.titleText }}">{{ cardModel.titleText }}</span></h5>
+        <p class="card-text text-truncate" *ngIf="cardModel.bodyText">DOB: <span title="{{ cardModel.bodyText }}">{{ cardModel.bodyText }}</span></p>
+        <p class="card-text text-muted text-truncate" *ngIf="cardModel.footerText">
+           <span title="{{cardModel.footerText}}">{{cardModel.footerText}}</span>
         </p>
     </div>
 
