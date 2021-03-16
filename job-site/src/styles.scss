@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-    font-family: 'Roboto', sans-serif;;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 3.4375rem;
 }
 .navbar {
     padding-top: 0;
@@ -20,5 +21,35 @@ body{
                 }
             }
         }
+    }
+}
+.btn {
+    min-width: 80px;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    &.btn-primary {
+        background-color: #000000;
+        border-color: #000000;
+        &:active {
+            background-color: #000000!important;
+            border-color: #000000!important;
+        }
+    }
+    &.btn-danger {
+        background-color: #ffffff;
+        border-color: #000000;
+        color: #000000;
+        &:active {
+            background-color: #ffffff!important;
+            border-color: #000000!important;
+            color: #000000!important;
+        }
+    }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
+    &:focus {
+       box-shadow: none!important;
     }
 }
