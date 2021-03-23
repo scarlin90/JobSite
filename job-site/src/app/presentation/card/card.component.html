@@ -1,14 +1,19 @@
-<div [ngClass]="{'card-active': cardModel.isSelected}" class="card card-padding" (click)="onCardClick()">
+<div
+  [ngClass]="{ 'card-active': cardModel.isSelected }"
+  class="card card-padding"
+  (click)="onCardClick()"
+>
+  <img *ngIf="cardModel.imgUrl" class="card-img-top" [src]="cardModel.imgUrl" />
 
-    <img *ngIf="cardModel.imgUrl" class="card-img-top" [src]="cardModel.imgUrl">
-
-
-    <div class="card-body">
-        <h5 class="card-title text-truncate" *ngIf="cardModel.titleText"><span title="{{ cardModel.titleText }}">{{ cardModel.titleText }}</span></h5>
-        <p class="card-text text-truncate" *ngIf="cardModel.bodyText">DOB: <span title="{{ cardModel.bodyText }}">{{ cardModel.bodyText }}</span></p>
-        <p class="card-text text-muted text-truncate" *ngIf="cardModel.footerText">
-           <span title="{{cardModel.footerText}}">{{cardModel.footerText}}</span>
-        </p>
-    </div>
-
+  <div class="card-body">
+    <h5 class="card-title text-truncate" *ngIf="cardModel.titleText">
+      <span title="{{ cardModel.titleText }}">{{ cardModel.titleText }}</span>
+    </h5>
+    <p class="card-text text-truncate" *ngIf="cardModel.bodyText">
+      <span title="{{ cardModel.bodyText }}">{{ cardModel.bodyText }}</span>
+    </p>
+    <p class="card-text text-muted text-truncate" *ngIf="cardModel.footerText">
+      <span title="{{ cardModel.footerText }}">{{ cardModel.footerText }}</span>
+    </p>
+  </div>
 </div>

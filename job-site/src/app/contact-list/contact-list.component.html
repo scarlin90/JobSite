@@ -1,17 +1,18 @@
 <app-list-header [listHeaderModel]="headerModel"></app-list-header>
+
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
     <h5 class="mt-2">{{ selectedContacts.length }} Selected</h5>
   </div>
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
     <button
-    [disabled]="selectedContacts.length === 0 ? true : null"
-    (click)="onDeleteClick()"
-    type="button"
-    class="btn btn-danger float-right"
-  >
-    Remove
-  </button>
+      [disabled]="selectedContacts.length === 0 ? true : null"
+      (click)="onDeleteClick()"
+      type="button"
+      class="btn btn-danger float-right"
+    >
+      Remove
+    </button>
     <button
       type="button"
       class="btn btn-primary btn btn-primary float-right mr-2"
@@ -19,7 +20,6 @@
     >
       Add
     </button>
-
   </div>
 </div>
 <div class="row">

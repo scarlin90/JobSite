@@ -6,16 +6,14 @@ import { PresentationModule } from '../presentation/presentation.module';
 import { AddContactComponent } from '../add-contact/add-contact.component';
 import { AddContactModule } from '../add-contact/add-contact.module';
 
-
 @NgModule({
   declarations: [ContactListComponent],
   imports: [
     CommonModule,
     ContactListRoutingModule,
     PresentationModule,
-    AddContactModule
+    AddContactModule,
   ],
-  providers: [DatePipe],
-  exports: [ContactListComponent]
+  exports: [ContactListComponent],
 })
-export class ContactListModule { }
+export class ContactListModule {}

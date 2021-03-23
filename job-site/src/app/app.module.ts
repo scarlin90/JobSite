@@ -6,19 +6,19 @@ import { AppComponent } from './app.component';
 import { ApiModule } from './api';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { DatePipe } from '@angular/common';
+import { CardListService } from './common-services/card-list.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ApiModule,
     HttpClientModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DatePipe, CardListService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
